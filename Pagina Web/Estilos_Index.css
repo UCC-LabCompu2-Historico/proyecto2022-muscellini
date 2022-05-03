@@ -1,0 +1,41 @@
+body {
+    background-image: url("/imagenes/prueba.jpg");
+    background-size: cover;
+}
+
+button {
+    display: inline-block;
+    background-color: rgb(65, 65, 65);
+    border: 4px double #cccccc;
+    color: rgb(255, 204, 0);
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    width: 200px;
+    cursor: pointer;
+    margin: 5px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 200px;
+    color: rgb(255, 204, 0);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.principal {
+    width: 600px;
+    height: 600px;
+    background-color: transparent;
+    margin: auto;
+    text-align: center;
+}
+
+.botones_navegacion {
+    margin-top: 50px;
+}
+
+button:hover {
+    color: white;
+}
