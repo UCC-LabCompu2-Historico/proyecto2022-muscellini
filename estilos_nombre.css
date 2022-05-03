@@ -44,6 +44,10 @@ button {
     margin-top: 20px;
 }
 
-button:hover {
+#avanzar:hover {
     color: white;
+}
+
+#volver_al_inicio:hover{
+    color: red;
 }
