@@ -17,7 +17,7 @@ document.addEventListener('keyup', function (evento){
     controles[evento.code] = false;
 });
 const canvas = document.getElementById('juego');
-const ctx = canvas.getContext('2d');
+const contexto_de_canvas = canvas.getContext('2d');
 
 class Jugador_Principal{
     constructor(x,y,ancho,alto,color) {
@@ -28,17 +28,16 @@ class Jugador_Principal{
         this.color=color;
 
         this.velocidad_en_eje_y=0;
-        this.altura_de_salto=25;
+        this.altura_de_salto=20;
         this.altura_original=alto;
         this.esta_en_el_suelo=false;
-        this.temporizador_de_saltos=0;
     }
 
     Dibujo (){
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x,this.y,this.ancho,this.alto);
-        ctx.closePath();
+        contexto_de_canvas.beginPath();
+        contexto_de_canvas.fillStyle = this.color;
+        contexto_de_canvas.fillRect(this.x,this.y,this.ancho,this.alto);
+        contexto_de_canvas.closePath();
     }
 
     Animacion(){
@@ -46,9 +45,6 @@ class Jugador_Principal{
         if(controles['Space'] || controles['KeyW']){
             console.log('salto_ejecutado');
             this.Salto();
-        }
-        else{
-            this.temporizador_de_saltos=0;
         }
         if(controles['KeyS']){
             this.alto=this.altura_original/2;
@@ -75,14 +71,9 @@ class Jugador_Principal{
     }
 
     Salto(){
-        if(this.esta_en_el_suelo && this.temporizador_de_saltos==0)
+        if(this.esta_en_el_suelo)
         {
-            this.temporizador_de_saltos=1;
             this.velocidad_en_eje_y = -this.altura_de_salto;
-        }
-        else if(this.temporizador_de_saltos>0 && this.temporizador_de_saltos<15){
-            this.temporizador_de_saltos++;
-            this.altura_de_salto= -this.altura_de_salto-(this.temporizador_de_saltos/50);
         }
     }
 }
@@ -98,13 +89,11 @@ class Obstaculos{
         this.velocidad_en_eje_x = -velocidad_de_pantalla;
     }
     Dibujar (){
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x,this.y,this.ancho,this.altura);
-        ctx.closePath();
+        contexto_de_canvas.beginPath();
+        contexto_de_canvas.fillStyle = this.color;
+        contexto_de_canvas.fillRect(this.x,this.y,this.ancho,this.altura);
+        contexto_de_canvas.closePath();
     }
-
-
 
     Actualizar_Estado(){
         this.x+=this.velocidad_en_eje_x;
@@ -112,7 +101,7 @@ class Obstaculos{
         this.velocidad_en_eje_x= -velocidad_de_pantalla;
     }
 }
-//a=alineacion
+
 class Texto{
     constructor(texto,x,y,alineacion,color,dimensiones) {
         this.texto=texto;
@@ -124,19 +113,20 @@ class Texto{
     }
 
     Dibujar(){
-        ctx.beginPath();
-        ctx.fillStyle=this.color;
-        ctx.font=this.dimensiones+"px sans-serif";
-        ctx.textAlign=this.alineacion;
-        ctx.fillText(this.texto,this.x,this.y);
-        ctx.closePath();
+        contexto_de_canvas.beginPath();
+        contexto_de_canvas.fillStyle=this.color;
+        contexto_de_canvas.font=this.dimensiones+"px sans-serif";
+        contexto_de_canvas.textAlign=this.alineacion;
+        contexto_de_canvas.fillText(this.texto,this.x,this.y);
+        contexto_de_canvas.closePath();
     }
 }
 
 function Crear_Obstaculos(){
-     let tamano_del_obstaculo= generar_entero_aleatorio(20,70);
+     let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
+     let altura_del_obstaculo=generar_entero_aleatorio(50,100)
      let tipo_de_obstaculo = generar_entero_aleatorio(0,1);
-     let obstaculo=new Obstaculos(canvas.width + tamano_del_obstaculo, canvas.height - tamano_del_obstaculo,tamano_del_obstaculo,tamano_del_obstaculo,'#2484E4');
+     let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#2484E4');
 
      if(tipo_de_obstaculo==1){
          obstaculo.y -= jugador.altura_original - 10;
@@ -152,7 +142,7 @@ function Comenzar(){
     canvas.width=800;
     canvas.height=600;
 
-    ctx.font = "20px sans-serif";
+    contexto_de_canvas.font = "20px sans-serif";
 
     sistema_de_salto = 1;
     velocidad_de_pantalla = 3;
@@ -175,7 +165,7 @@ let temporizador_de_creacion_de_obstaculos=temporizador_de_creacion_de_obstaculo
 function Actualizar_Canvas(){
     requestAnimationFrame(Actualizar_Canvas);
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    contexto_de_canvas.clearRect(0,0,canvas.width,canvas.height);
     temporizador_de_creacion_de_obstaculos--;
     if(temporizador_de_creacion_de_obstaculos <= 0){
         Crear_Obstaculos();
