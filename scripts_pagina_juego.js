@@ -6,6 +6,8 @@ let velocidad_de_pantalla;
 let jugador;
 let controles={};
 let obstaculos = [];
+let texto_para_mostrar_puntaje;
+let texto_para_mostrar_puntaje_maximo;
 
 document.addEventListener('keypress', function (evento){
     controles[evento.code]= true;
@@ -110,6 +112,26 @@ class Obstaculos{
         this.velocidad_en_eje_x= -velocidad_de_pantalla;
     }
 }
+//a=alineacion
+class Texto{
+    constructor(texto,x,y,alineacion,color,dimensiones) {
+        this.texto=texto;
+        this.x=x;
+        this.y=y;
+        this.alineacion=alineacion;
+        this.color=color;
+        this.dimensiones=dimensiones;
+    }
+
+    Dibujar(){
+        ctx.beginPath();
+        ctx.fillStyle=this.color;
+        ctx.font=this.dimensiones+"px sans-serif";
+        ctx.textAlign=this.alineacion;
+        ctx.fillText(this.texto,this.x,this.y);
+        ctx.closePath();
+    }
+}
 
 function Crear_Obstaculos(){
      let tamano_del_obstaculo= generar_entero_aleatorio(20,70);
@@ -137,8 +159,13 @@ function Comenzar(){
 
     puntaje = 0;
     puntaje_maximo = 0;
+    if(localStorage.getItem('Puntaje_Maximo')){
+        puntaje_maximo=localStorage.getItem('Puntaje_Maximo');
+    }
 
     jugador = new Jugador_Principal(25,0, 50,50, '#FF5858');
+    texto_para_mostrar_puntaje= new Texto("Puntaje: "+puntaje,150,25,"izquierda","#FFCC01","20");
+    texto_para_mostrar_puntaje_maximo=new Texto("Puntaje maximo: "+puntaje_maximo, 600,25,"derecha","#FFCC01", "20")
     requestAnimationFrame(Actualizar_Canvas);
 }
 
@@ -162,10 +189,30 @@ function Actualizar_Canvas(){
 
     for(let i=0;i<obstaculos.length;i++){
         let o = obstaculos[i];
+
+        if(o.x + o.ancho<0){
+            obstaculos.splice(i,1);
+        }
+
+        if(jugador.x < (o.x + o.ancho) && (jugador.x + jugador.ancho)>o.x && jugador.y < (o.y+o.altura) && (jugador.y + jugador.alto) > o.y){
+            obstaculos =[];
+            puntaje=0;
+            temporizador_de_creacion_de_obstaculos=temporizador_de_creacion_de_obstaculos_inicial;
+            velocidad_de_pantalla=3;
+            window.localStorage.setItem('Puntaje_Maximo', puntaje_maximo);
+        }
         o.Actualizar_Estado();
     }
     jugador.Animacion();
     puntaje++;
+    texto_para_mostrar_puntaje.texto= "Puntaje: " + puntaje;
+    texto_para_mostrar_puntaje.Dibujar();
+    if(puntaje>puntaje_maximo){
+        puntaje_maximo=puntaje;
+        texto_para_mostrar_puntaje_maximo.texto ="Puntaje maximo: " + puntaje_maximo;
+        //window.localStorage.setItem('Puntaje_Maximo', puntaje_maximo);
+    }
+    texto_para_mostrar_puntaje_maximo.Dibujar();
     velocidad_de_pantalla += 0.003;
 }
 
