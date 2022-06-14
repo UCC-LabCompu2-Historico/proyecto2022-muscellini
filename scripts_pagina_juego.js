@@ -60,9 +60,9 @@ class Jugador_Principal{
         this.altura_original=alto;
         this.esta_en_el_suelo=false;
     }
-    /*
-        Función que dibuja al objeto en el canvas. En este caso se ha elegido un rectángulo.
-     */
+/*
+    Función que dibuja al objeto en el canvas. En este caso se ha elegido un rectángulo.
+*/
     Dibujo (){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle = this.color;
@@ -70,9 +70,9 @@ class Jugador_Principal{
         contexto_de_canvas.closePath();
     }
 
-    /*
-       Comportamiento del objeto en el canvas.
-    */
+/*
+    Comportamiento del objeto en el canvas.
+*/
     Animacion(){
 
         if(controles['Space'] || controles['KeyW']){
@@ -113,7 +113,7 @@ class Jugador_Principal{
 
 /*
     Declaración de clase utilizada para generar obstaculos.
- */
+*/
 
 class Obstaculos{
     constructor(x,y,ancho,altura,color) {
@@ -126,9 +126,9 @@ class Obstaculos{
         this.velocidad_en_eje_x = -velocidad_de_pantalla;
     }
 
-    /*
-        Función de dibujo de los obstaculos.
-     */
+/*
+   Función de dibujo de los obstaculos.
+*/
     Dibujar (){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle = this.color;
@@ -145,7 +145,7 @@ class Obstaculos{
 
 /*
     Declaración de clase texto que es usada para mostrar el texto en pantalla.
- */
+*/
 
 class Texto{
     constructor(texto,x,y,alineacion,color,dimensiones) {
@@ -156,9 +156,9 @@ class Texto{
         this.color=color;
         this.dimensiones=dimensiones;
     }
-    /*
-            Función de dibujo de texto.
-    */
+/*
+   Función de dibujo de texto.
+*/
     Dibujar(){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle=this.color;
@@ -171,7 +171,7 @@ class Texto{
 
 /*
     Función que permite aparecer obstaculos en el canvas. Estos objetos son agregados al arreglo llamado obstaculos.
- */
+*/
 function Crear_Obstaculos(){
     let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
     let altura_del_obstaculo=generar_entero_aleatorio(75,125);
@@ -191,8 +191,8 @@ function generar_entero_aleatorio(minimo,maximo){
 
 
 /*
-    Función que realiza el dibujo incial en el canvas.
- */
+    Función que realiza el dibujo inicial en el canvas.
+*/
 function Comenzar(){
     canvas.width=1000;
     canvas.height=600;
@@ -244,9 +244,9 @@ function Actualizar_Canvas(){
             obstaculos.splice(i,1);
         }
 
-        /*
-            Este if detalla lo que sucede si el jugador colisiona con un objeto. El juego vuelve al inicio.
-         */
+/*
+    Este if detalla lo que sucede si el jugador colisiona con un objeto. El juego vuelve al inicio.
+*/
         if(jugador.x < (o.x + o.ancho) && (jugador.x + jugador.ancho)>o.x && jugador.y < (o.y+o.altura) && (jugador.y + jugador.alto) > o.y){
             obstaculos =[];
             puntaje=0;
