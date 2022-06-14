@@ -11,7 +11,16 @@ function alerta_si_esta_vacio(){
     }
 }
 
-let songs=[];
+let lista_de_reproduccion=["musica/Juggernog.mp3","musica/Quick_revive.mp3"];
+const reproductor = document.getElementById("reproductor");
+
+function reproducir(){
+    let cancion=lista_de_reproduccion[Math.floor(Math.random()*lista_de_reproduccion.length)];
+    document.getElementById("reproductor").src=cancion;
+}
+document.getElementById("reproductor").addEventListener('ended',reproducir);
+reproducir();
+
 let puntaje;
 let puntaje_maximo;
 let sistema_de_salto;
@@ -23,6 +32,7 @@ let texto_para_mostrar_puntaje;
 let texto_para_mostrar_puntaje_maximo;
 let texto_para_mostrar_nombre;
 let mostrar_nombre = localStorage['nombre_jugador'];
+
 
 /*
 function cargar_nombre(){
