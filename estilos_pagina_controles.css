@@ -1,9 +1,7 @@
 body {
-    background-image: url("imagenes/prueba.jpg");
+    background-color: black;
     background-size: cover;
 }
-
-
 button {
     display: inline-block;
     background-color: rgb(65, 65, 65);
@@ -24,17 +22,15 @@ button {
     color: rgb(255, 204, 0);
     font-family: 'Press Start 2P', cursive;
 }
-
-.principal {
-    width: 600px;
-    height: 600px;
-    background-color: transparent;
-    margin: auto;
-    text-align: center;
-}
-
-.botones_navegacion {
+.texto {
     margin-top: 50px;
+    text-align: center;
+    font-family: 'Goldman', cursive;
+    color: rgb(255, 204, 0);
+}
+.boton {
+    text-align: center;
+    margin-top: 25px;
 }
 
 button:hover {
