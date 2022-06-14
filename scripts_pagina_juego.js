@@ -160,7 +160,7 @@ function Crear_Obstaculos(){
      let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
      let altura_del_obstaculo=generar_entero_aleatorio(50,100)
      let tipo_de_obstaculo = generar_entero_aleatorio(0,1);
-     let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#2484E4');
+     let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#FFFFFF');
 
      if(tipo_de_obstaculo==1){
          obstaculo.y -= jugador.altura_original - 10;
@@ -187,10 +187,10 @@ function Comenzar(){
         puntaje_maximo=localStorage.getItem('Puntaje_Maximo');
     }
 
-    jugador = new Jugador_Principal(25,0, 50,50, '#FF5858');
-    texto_para_mostrar_puntaje= new Texto("Puntaje: "+puntaje,150,40,"izquierda","#FFCC01","20");
-    texto_para_mostrar_puntaje_maximo=new Texto("Puntaje maximo: "+puntaje_maximo, 650,40,"derecha","#FFCC01", "20");
-    texto_para_mostrar_nombre = new Texto("Nombre: "+ mostrar_nombre,400,40,"medio","#FFCC01", "20");
+    jugador = new Jugador_Principal(25,0, 50,50, '#FFCC01');
+    texto_para_mostrar_puntaje= new Texto("Puntaje: "+puntaje,400,40,"centro","#FFFFFF","20");
+    texto_para_mostrar_puntaje_maximo=new Texto("Puntaje maximo: "+puntaje_maximo, 650,40,"derecha","#FFFFFF", "20");
+    texto_para_mostrar_nombre = new Texto("Nombre: "+ mostrar_nombre,150,40,"izquierda","#FFFFFF", "20");
     requestAnimationFrame(Actualizar_Canvas);
 }
 
