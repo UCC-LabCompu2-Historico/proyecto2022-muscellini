@@ -1,4 +1,17 @@
+function alerta_si_esta_vacio(){
+    var nombre,url;
+    nombre=document.getElementById("nombre").value;
+    url="pantalla_juego.html"
+    if(nombre===""){
+        alert("El nombre no puede estar vacío, ingrese un nombre válido.");
+    }
+    else{
+        window.open(url,"_self");
+        localStorage.setItem('nombre_jugador', nombre);
+    }
+}
 
+let songs=[];
 let puntaje;
 let puntaje_maximo;
 let sistema_de_salto;
@@ -8,6 +21,17 @@ let controles={};
 let obstaculos = [];
 let texto_para_mostrar_puntaje;
 let texto_para_mostrar_puntaje_maximo;
+let texto_para_mostrar_nombre;
+let mostrar_nombre = localStorage['nombre_jugador'];
+
+/*
+function cargar_nombre(){
+        var url, name;
+        name=url.split("#")[1];
+        console.log(name)
+}
+
+*/
 
 document.addEventListener('keypress', function (evento){
     controles[evento.code]= true;
@@ -139,7 +163,7 @@ function generar_entero_aleatorio(minimo,maximo){
     return Math.round(Math.random()*(maximo-minimo)+minimo);
 }
 function Comenzar(){
-    canvas.width=800;
+    canvas.width=1000;
     canvas.height=600;
 
     contexto_de_canvas.font = "20px sans-serif";
@@ -154,8 +178,9 @@ function Comenzar(){
     }
 
     jugador = new Jugador_Principal(25,0, 50,50, '#FF5858');
-    texto_para_mostrar_puntaje= new Texto("Puntaje: "+puntaje,150,25,"izquierda","#FFCC01","20");
-    texto_para_mostrar_puntaje_maximo=new Texto("Puntaje maximo: "+puntaje_maximo, 600,25,"derecha","#FFCC01", "20")
+    texto_para_mostrar_puntaje= new Texto("Puntaje: "+puntaje,150,40,"izquierda","#FFCC01","20");
+    texto_para_mostrar_puntaje_maximo=new Texto("Puntaje maximo: "+puntaje_maximo, 650,40,"derecha","#FFCC01", "20");
+    texto_para_mostrar_nombre = new Texto("Nombre: "+ mostrar_nombre,400,40,"medio","#FFCC01", "20");
     requestAnimationFrame(Actualizar_Canvas);
 }
 
@@ -197,10 +222,10 @@ function Actualizar_Canvas(){
     puntaje++;
     texto_para_mostrar_puntaje.texto= "Puntaje: " + puntaje;
     texto_para_mostrar_puntaje.Dibujar();
+    texto_para_mostrar_nombre.Dibujar();
     if(puntaje>puntaje_maximo){
         puntaje_maximo=puntaje;
         texto_para_mostrar_puntaje_maximo.texto ="Puntaje maximo: " + puntaje_maximo;
-        //window.localStorage.setItem('Puntaje_Maximo', puntaje_maximo);
     }
     texto_para_mostrar_puntaje_maximo.Dibujar();
     velocidad_de_pantalla += 0.003;

@@ -1,24 +1,12 @@
 
 function alerta_si_esta_vacio(){
-    var nombre;
+    var nombre,url;
     nombre=document.getElementById("nombre").value;
+    url="pantalla_juego.html#"+nombre;
     if(nombre===""){
         alert("El nombre no puede estar vacío, ingrese un nombre válido.");
     }
     else{
-        window.open("pantalla_juego.html");
+        window.open(url);
     }
-
-}
-
-function cargarWeb(){
-    url_pagina_siguiente="pantalla_juego.html#" + nombre;
-
-    window.open(url_pagina_siguiente);
-}
-function cargar_resultado(){
-    var url_pagina, nombre;
-
-    url_pagina=window.location.href.split("/")[5];
-
 }
