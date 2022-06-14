@@ -11,6 +11,7 @@ function alerta_si_esta_vacio(){
     }
 }
 
+/*
 let lista_de_reproduccion=["musica/Juggernog.mp3","musica/Quick_revive.mp3"];
 const reproductor = document.getElementById("reproductor");
 
@@ -20,7 +21,7 @@ function reproducir(){
 }
 document.getElementById("reproductor").addEventListener('ended',reproducir);
 reproducir();
-
+*/
 let puntaje;
 let puntaje_maximo;
 let sistema_de_salto;
@@ -33,15 +34,6 @@ let texto_para_mostrar_puntaje_maximo;
 let texto_para_mostrar_nombre;
 let mostrar_nombre = localStorage['nombre_jugador'];
 
-
-/*
-function cargar_nombre(){
-        var url, name;
-        name=url.split("#")[1];
-        console.log(name)
-}
-
-*/
 
 document.addEventListener('keypress', function (evento){
     controles[evento.code]= true;
@@ -158,7 +150,7 @@ class Texto{
 
 function Crear_Obstaculos(){
      let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
-     let altura_del_obstaculo=generar_entero_aleatorio(50,100)
+     let altura_del_obstaculo=generar_entero_aleatorio(75,125);
      let tipo_de_obstaculo = generar_entero_aleatorio(0,1);
      let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#FFFFFF');
 
