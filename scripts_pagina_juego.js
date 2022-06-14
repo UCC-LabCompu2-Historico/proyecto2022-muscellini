@@ -1,3 +1,8 @@
+/*
+    Esta función chequea que el campo donde se ingresa el nombre no esté vacío.
+    En caso de que lo esté, arroja una alerta.
+    Si no está vacío, procede a guardar el nombre ingresado.
+*/
 function alerta_si_esta_vacio(){
     var nombre,url;
     nombre=document.getElementById("nombre").value;
@@ -10,7 +15,9 @@ function alerta_si_esta_vacio(){
         localStorage.setItem('nombre_jugador', nombre);
     }
 }
-
+/*
+    Declaración general de variables.
+ */
 let puntaje;
 let puntaje_maximo;
 let sistema_de_salto;
@@ -23,17 +30,23 @@ let texto_para_mostrar_puntaje_maximo;
 let texto_para_mostrar_nombre;
 let mostrar_nombre = localStorage['nombre_jugador'];
 
-
+/*
+    Event listeners para teclas presionadas. De acuerdo a lo presionado, se ejecuta cierta acción.
+ */
 document.addEventListener('keypress', function (evento){
     controles[evento.code]= true;
 });
-
 document.addEventListener('keyup', function (evento){
     controles[evento.code] = false;
 });
+
+
 const canvas = document.getElementById('juego');
 const contexto_de_canvas = canvas.getContext('2d');
 
+/*
+    Declaración de clase del jugador. Con ella se creará un objeto que representa al jugador en el canvas.
+ */
 class Jugador_Principal{
     constructor(x,y,ancho,alto,color) {
         this.x=x;
@@ -47,7 +60,9 @@ class Jugador_Principal{
         this.altura_original=alto;
         this.esta_en_el_suelo=false;
     }
-
+    /*
+        Función que dibuja al objeto en el canvas. En este caso se ha elegido un rectángulo.
+     */
     Dibujo (){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle = this.color;
@@ -55,6 +70,9 @@ class Jugador_Principal{
         contexto_de_canvas.closePath();
     }
 
+    /*
+       Comportamiento del objeto en el canvas.
+    */
     Animacion(){
 
         if(controles['Space'] || controles['KeyW']){
@@ -93,6 +111,10 @@ class Jugador_Principal{
     }
 }
 
+/*
+    Declaración de clase utilizada para generar obstaculos.
+ */
+
 class Obstaculos{
     constructor(x,y,ancho,altura,color) {
         this.x=x;
@@ -103,6 +125,10 @@ class Obstaculos{
 
         this.velocidad_en_eje_x = -velocidad_de_pantalla;
     }
+
+    /*
+        Función de dibujo de los obstaculos.
+     */
     Dibujar (){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle = this.color;
@@ -117,6 +143,10 @@ class Obstaculos{
     }
 }
 
+/*
+    Declaración de clase texto que es usada para mostrar el texto en pantalla.
+ */
+
 class Texto{
     constructor(texto,x,y,alineacion,color,dimensiones) {
         this.texto=texto;
@@ -126,7 +156,9 @@ class Texto{
         this.color=color;
         this.dimensiones=dimensiones;
     }
-
+    /*
+            Función de dibujo de texto.
+    */
     Dibujar(){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle=this.color;
@@ -137,22 +169,30 @@ class Texto{
     }
 }
 
+/*
+    Función que permite aparecer obstaculos en el canvas. Estos objetos son agregados al arreglo llamado obstaculos.
+ */
 function Crear_Obstaculos(){
-     let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
-     let altura_del_obstaculo=generar_entero_aleatorio(75,125);
-     let tipo_de_obstaculo = generar_entero_aleatorio(0,1);
-     let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#FFFFFF');
+    let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
+    let altura_del_obstaculo=generar_entero_aleatorio(75,125);
+    let tipo_de_obstaculo = generar_entero_aleatorio(0,1);
+    let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#FFFFFF');
 
-     if(tipo_de_obstaculo==1){
-         obstaculo.y -= jugador.altura_original - 10;
-     }
+    if(tipo_de_obstaculo==1){
+        obstaculo.y -= jugador.altura_original - 10;
+    }
 
-     obstaculos.push(obstaculo);
+    obstaculos.push(obstaculo);
 }
 
 function generar_entero_aleatorio(minimo,maximo){
     return Math.round(Math.random()*(maximo-minimo)+minimo);
 }
+
+
+/*
+    Función que realiza el dibujo incial en el canvas.
+ */
 function Comenzar(){
     canvas.width=1000;
     canvas.height=600;
@@ -178,6 +218,10 @@ function Comenzar(){
 let temporizador_de_creacion_de_obstaculos_inicial=200;
 let temporizador_de_creacion_de_obstaculos=temporizador_de_creacion_de_obstaculos_inicial;
 
+/*
+    Función que permite el funcionamiento del juego.
+    Se crean obstaculos a partir de un temporizador. Estos se van eliminando a medida que avanza el juego para no sobreexplotar recursos.
+ */
 function Actualizar_Canvas(){
     requestAnimationFrame(Actualizar_Canvas);
 
@@ -200,6 +244,9 @@ function Actualizar_Canvas(){
             obstaculos.splice(i,1);
         }
 
+        /*
+            Este if detalla lo que sucede si el jugador colisiona con un objeto. El juego vuelve al inicio.
+         */
         if(jugador.x < (o.x + o.ancho) && (jugador.x + jugador.ancho)>o.x && jugador.y < (o.y+o.altura) && (jugador.y + jugador.alto) > o.y){
             obstaculos =[];
             puntaje=0;
