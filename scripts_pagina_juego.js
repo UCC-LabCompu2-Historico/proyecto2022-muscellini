@@ -31,6 +31,10 @@ let texto_para_mostrar_nombre;
 let mostrar_nombre = localStorage['nombre_jugador'];
 let canvas;
 let contexto_de_canvas;
+let personaje= new Image();
+personaje.src="imagenes/imagen_cowboy.png";
+
+
 /*
     Event listeners para teclas presionadas. De acuerdo a lo presionado, se ejecuta cierta acción.
  */
@@ -69,7 +73,7 @@ class Jugador_Principal{
     Dibujo (){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle = this.color;
-        contexto_de_canvas.fillRect(this.x,this.y,this.ancho,this.alto);
+        contexto_de_canvas.drawImage(personaje,this.x,this.y,this.ancho,this.alto);
         contexto_de_canvas.closePath();
     }
 
