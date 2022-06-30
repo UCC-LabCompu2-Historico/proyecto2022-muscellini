@@ -29,7 +29,8 @@ let texto_para_mostrar_puntaje;
 let texto_para_mostrar_puntaje_maximo;
 let texto_para_mostrar_nombre;
 let mostrar_nombre = localStorage['nombre_jugador'];
-
+let canvas;
+let contexto_de_canvas;
 /*
     Event listeners para teclas presionadas. De acuerdo a lo presionado, se ejecuta cierta acción.
  */
@@ -40,9 +41,11 @@ document.addEventListener('keyup', function (evento){
     controles[evento.code] = false;
 });
 
-
-const canvas = document.getElementById('juego');
-const contexto_de_canvas = canvas.getContext('2d');
+function carga_pagina_juego(){
+    canvas = document.getElementById('juego');
+    contexto_de_canvas = canvas.getContext('2d');
+    Comenzar();
+}
 
 /*
     Declaración de clase del jugador. Con ella se creará un objeto que representa al jugador en el canvas.
@@ -248,6 +251,7 @@ function Actualizar_Canvas(){
     Este if detalla lo que sucede si el jugador colisiona con un objeto. El juego vuelve al inicio.
 */
         if(jugador.x < (o.x + o.ancho) && (jugador.x + jugador.ancho)>o.x && jugador.y < (o.y+o.altura) && (jugador.y + jugador.alto) > o.y){
+            alert("Perdiste! Pulsa OK para reintentar.");
             obstaculos =[];
             puntaje=0;
             temporizador_de_creacion_de_obstaculos=temporizador_de_creacion_de_obstaculos_inicial;
@@ -268,5 +272,3 @@ function Actualizar_Canvas(){
     texto_para_mostrar_puntaje_maximo.Dibujar();
     velocidad_de_pantalla += 0.003;
 }
-
-Comenzar();
