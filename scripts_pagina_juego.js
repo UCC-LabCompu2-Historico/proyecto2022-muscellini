@@ -32,7 +32,7 @@ let mostrar_nombre = localStorage['nombre_jugador'];
 let canvas;
 let contexto_de_canvas;
 let personaje= new Image();
-personaje.src="imagenes/imagen_cowboy.png";
+personaje.src="imagenes/img_clon.png";
 
 
 /*
