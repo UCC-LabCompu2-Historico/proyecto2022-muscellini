@@ -33,7 +33,8 @@ let canvas;
 let contexto_de_canvas;
 let personaje= new Image();
 personaje.src="imagenes/img_clon.png";
-
+let img_obstaculo=new Image();
+img_obstaculo.src="imagenes/img_droide.png"
 
 /*
     Event listeners para teclas presionadas. De acuerdo a lo presionado, se ejecuta cierta acción.
@@ -139,7 +140,7 @@ class Obstaculos{
     Dibujar (){
         contexto_de_canvas.beginPath();
         contexto_de_canvas.fillStyle = this.color;
-        contexto_de_canvas.fillRect(this.x,this.y,this.ancho,this.altura);
+        contexto_de_canvas.drawImage(img_obstaculo,this.x,this.y,this.ancho,this.altura);
         contexto_de_canvas.closePath();
     }
 
@@ -180,7 +181,7 @@ class Texto{
     Función que permite aparecer obstaculos en el canvas. Estos objetos son agregados al arreglo llamado obstaculos.
 */
 function Crear_Obstaculos(){
-    let ancho_del_obstaculo= generar_entero_aleatorio(20,70);
+    let ancho_del_obstaculo= generar_entero_aleatorio(50,70);
     let altura_del_obstaculo=generar_entero_aleatorio(75,125);
     let tipo_de_obstaculo = generar_entero_aleatorio(0,1);
     let obstaculo=new Obstaculos(canvas.width + ancho_del_obstaculo, canvas.height - altura_del_obstaculo,ancho_del_obstaculo,altura_del_obstaculo,'#FFFFFF');
