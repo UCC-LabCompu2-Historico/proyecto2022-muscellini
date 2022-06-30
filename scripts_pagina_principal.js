@@ -1,3 +1,3 @@
-function cerrar(){
+function cerrar() {
     window.close();
 }
