@@ -3,7 +3,7 @@
 - *Autor:
   Muscellini,Santiago Tomás*
 - *Link de la página del proyecto: 
-https://ucc-labcompu2.github.io/proyecto2022-muscellini/index.html*
+https://ucc-labcompu2-Historico.github.io/proyecto2022-muscellini/index.html*
 
 - *Hasta el momento, para desarrollar la página de "The Vagrant" se utilizó HTML, CSS y Javascript.*
 
